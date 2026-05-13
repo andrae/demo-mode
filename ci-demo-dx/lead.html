@@ -40,6 +40,46 @@
 					<input type="submit" value="Submit" />
 				</form>
 
+				<script src='https://formui-usa1.mkt.dynamics.com/usa/FormCapture/FormCapture.bundle.js'></script>
+				<script>
+					// NOTE: for reference see https://go.microsoft.com/fwlink/?linkid=2250770
+
+					d365mktformcapture.waitForElement("#formcapture") // example: "#form1" as a selector for form with id="form1"
+					.then(form => {
+						const mappings = [
+							{
+								FormFieldName: "formfirstname",
+								DataverseFieldName: "firstname",
+							},
+							{
+								FormFieldName: "formlastname",
+								DataverseFieldName: "lastname",
+							},
+							{
+								FormFieldName: "formemail",
+								DataverseFieldName: "emailaddress1",
+							},
+							{
+								FormFieldName: "marketingCommunication",
+								DataverseFieldName: "msdynmkt_purposeid;channels;optinwhenchecked",
+								DataverseFieldValue: "10000000-0000-0000-0000-000000000003;Email;true",
+							},
+
+						];
+
+						form.addEventListener("submit", (e) => {
+							const serializedForm = d365mktformcapture.serializeForm(form, mappings);
+							// console.log(JSON.stringify(serializedForm)); // NOTE: enable for debugging
+							const payload = serializedForm.SerializedForm.build();
+
+							const captureConfig = {
+								FormId: "7abb2c7a-1c4e-f111-bec5-0022480b97df",
+								FormApiUrl: "https://public-usa.mkt.dynamics.com/api/v1.0/orgs/13f47eca-d036-f111-83fa-00224808ea33/landingpageforms"
+							}
+							d365mktformcapture.submitForm(captureConfig, payload);
+						}, true);
+					});
+				</script>
 
 		</main>
 
