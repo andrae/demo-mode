@@ -25,10 +25,24 @@
 			<div>
 				<!-- Script Lead Form Example -->
 				
-				<div data-form-id='7abb2c7a-1c4e-f111-bec5-0022480b97df'
-        data-form-api-url='https://public-usa.mkt.dynamics.com/api/v1.0/orgs/13f47eca-d036-f111-83fa-00224808ea33/landingpageforms'
-        data-cached-form-url='https://assets-usa.mkt.dynamics.com/13f47eca-d036-f111-83fa-00224808ea33/digitalassets/forms/7abb2c7a-1c4e-f111-bec5-0022480b97df' ></div>
-        <script src = 'https://formui-usa1.mkt.dynamics.com/usa/FormLoader/FormLoader.bundle.js' ></script>
+				<!-- Capture Lead Form Example -->
+				
+				<form id="formcapture" action="">
+					<label for="formfirstname">First Name:</label><br />
+					<input type="text" id="formfirstname" name="formfirstname" required /><br /><br />
+					
+					<label for="formlastname">Last Name:</label><br />
+					<input type="text" id="formlastname" name="formlastname" required /><br /><br />
+					
+					<label for="formemail">Email:</label><br />
+					<input type="email" id="formemail" name="formemail" /><br /><br />
+
+					<input type="checkbox" id="marketingCommunication" name="marketingCommunication" value="agree" />
+					<label for="marketingCommunication">I agree to Marketing Communication</label><br /><br />
+
+					<input type="submit" value="Submit" />
+					<p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+				</form>
 				
 				<!-- Script Lead Form Example -->
 			</div>
