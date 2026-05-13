@@ -24,7 +24,7 @@
 			<div style="border: 2px solid red">
 				<!-- Capture Lead Form Example -->
 				
-				<form id="formcapture" action="" method="POST">
+				<form id="formcapture" action="">
 					<label for="formfirstname">First Name:</label><br />
 					<input type="text" id="formfirstname" name="formfirstname" required /><br /><br />
 					
@@ -68,6 +68,7 @@
 						];
 
 						form.addEventListener("submit", (e) => {
+							e.preventDefault();
 							const serializedForm = d365mktformcapture.serializeForm(form, mappings);
 							// console.log(JSON.stringify(serializedForm)); // NOTE: enable for debugging
 							const payload = serializedForm.SerializedForm.build();
