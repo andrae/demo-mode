@@ -20,95 +20,14 @@
 		</nav>
 
 		<main>
-			<h2>Lead Form Capture</h2>
+			
+			<h2>Lead Form Script</h2>
 			<div>
-				<!-- Capture Lead Form Example -->
-				
-				<form id="formcapture" action="">
-					<label for="formfirstname">First Name:</label><br />
-					<input type="text" id="formfirstname" name="formfirstname" required /><br /><br />
-					
-					<label for="formlastname">Last Name:</label><br />
-					<input type="text" id="formlastname" name="formlastname" required /><br /><br />
-					
-					<label for="formemail">Email:</label><br />
-					<input type="email" id="formemail" name="formemail" /><br /><br />
-
-					<input type="checkbox" id="marketingCommunication" name="marketingCommunication" value="agree" />
-					<label for="marketingCommunication">I agree to Marketing Communication</label><br /><br />
-
-					<input type="submit" value="Submit" />
-					<p id="form-status" class="form-status" role="status" aria-live="polite"></p>
-				</form>
-
-				<script src='https://formui-usa1.mkt.dynamics.com/usa/FormCapture/FormCapture.bundle.js'></script>
-				<script>
-					// NOTE: for reference see https://go.microsoft.com/fwlink/?linkid=2250770
-
-					d365mktformcapture.waitForElement("#formcapture") // example: "#form1" as a selector for form with id="form1"
-					.then(form => {
-						const statusElement = document.getElementById("form-status");
-						const submitButton = form.querySelector('input[type="submit"]');
-						const mappings = [
-							{
-								FormFieldName: "formfirstname",
-								DataverseFieldName: "firstname",
-							},
-							{
-								FormFieldName: "formlastname",
-								DataverseFieldName: "lastname",
-							},
-							{
-								FormFieldName: "formemail",
-								DataverseFieldName: "emailaddress1",
-							},
-							{
-								FormFieldName: "marketingCommunication",
-								DataverseFieldName: "msdynmkt_purposeid;channels;optinwhenchecked",
-								DataverseFieldValue: "10000000-0000-0000-0000-000000000003;Email;true",
-							},
-
-						];
-
-						form.addEventListener("submit", async (e) => {
-							e.preventDefault();
-							if (statusElement) {
-								statusElement.className = "form-status is-pending";
-								statusElement.textContent = "Submitting...";
-							}
-							if (submitButton) {
-								submitButton.disabled = true;
-							}
-							const serializedForm = d365mktformcapture.serializeForm(form, mappings);
-							// console.log(JSON.stringify(serializedForm)); // NOTE: enable for debugging
-							const payload = serializedForm.SerializedForm.build();
-
-							const captureConfig = {
-								FormId: "7abb2c7a-1c4e-f111-bec5-0022480b97df",
-								FormApiUrl: "https://public-usa.mkt.dynamics.com/api/v1.0/orgs/13f47eca-d036-f111-83fa-00224808ea33/landingpageforms"
-							}
-							try {
-								await d365mktformcapture.submitForm(captureConfig, payload);
-								if (statusElement) {
-									statusElement.className = "form-status is-success";
-									statusElement.textContent = "Thank you. Your form was submitted successfully.";
-								}
-								form.reset();
-							} catch (error) {
-								console.error("Form capture submit failed", error);
-								if (statusElement) {
-									statusElement.className = "form-status is-error";
-									statusElement.textContent = "Submission failed. Please try again.";
-								}
-							} finally {
-								if (submitButton) {
-									submitButton.disabled = false;
-								}
-							}
-						}, true);
-					});
-				</script>
-				<!-- Capture Lead Form Example -->
+				<!-- Script Lead Form Example -->
+				<div data-form-id='7abb2c7a-1c4e-f111-bec5-0022480b97df' data-form-api-url='https://public-usa.mkt.dynamics.com/api/v1.0/orgs/13f47eca-d036-f111-83fa-00224808ea33/landingpageforms' data-cached-form-url='https://assets-usa.mkt.dynamics.com/13f47eca-d036-f111-83fa-00224808ea33/digitalassets/forms/7abb2c7a-1c4e-f111-bec5-0022480b97df' ></div>
+        		<script src = 'https://formui-usa1.mkt.dynamics.com/usa/FormLoader/FormLoader.bundle.js' ></script>
+				<!-- Script Lead Form Example -->
+			</div>
 
 		</main>
 
