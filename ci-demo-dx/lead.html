@@ -24,7 +24,7 @@
 			<div style="border: 2px solid red">
 				<!-- Capture Lead Form Example -->
 				
-				<form action="https://example.com/submit-lead" method="POST">
+				<form id="formcapture" action="" method="POST">
 					<label for="formfirstname">First Name:</label><br />
 					<input type="text" id="formfirstname" name="formfirstname" required /><br /><br />
 					
@@ -44,7 +44,7 @@
 <script>
     // NOTE: for reference see https://go.microsoft.com/fwlink/?linkid=2250770
 
-    d365mktformcapture.waitForElement("***Please fill***") // example: "#form1" as a selector for form with id="form1"
+    d365mktformcapture.waitForElement("formcapture") // example: "#form1" as a selector for form with id="form1"
     .then(form => {
         const mappings = [
             {
