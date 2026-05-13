@@ -38,6 +38,7 @@
 					<label for="marketingCommunication">I agree to Marketing Communication</label><br /><br />
 
 					<input type="submit" value="Submit" />
+					<p id="form-status" class="form-status" role="status" aria-live="polite"></p>
 				</form>
 
 				<script src='https://formui-usa1.mkt.dynamics.com/usa/FormCapture/FormCapture.bundle.js'></script>
@@ -46,6 +47,8 @@
 
 					d365mktformcapture.waitForElement("#formcapture") // example: "#form1" as a selector for form with id="form1"
 					.then(form => {
+						const statusElement = document.getElementById("form-status");
+						const submitButton = form.querySelector('input[type="submit"]');
 						const mappings = [
 							{
 								FormFieldName: "formfirstname",
@@ -67,8 +70,15 @@
 
 						];
 
-						form.addEventListener("submit", (e) => {
+						form.addEventListener("submit", async (e) => {
 							e.preventDefault();
+							if (statusElement) {
+								statusElement.className = "form-status is-pending";
+								statusElement.textContent = "Submitting...";
+							}
+							if (submitButton) {
+								submitButton.disabled = true;
+							}
 							const serializedForm = d365mktformcapture.serializeForm(form, mappings);
 							// console.log(JSON.stringify(serializedForm)); // NOTE: enable for debugging
 							const payload = serializedForm.SerializedForm.build();
@@ -77,7 +87,24 @@
 								FormId: "7abb2c7a-1c4e-f111-bec5-0022480b97df",
 								FormApiUrl: "https://public-usa.mkt.dynamics.com/api/v1.0/orgs/13f47eca-d036-f111-83fa-00224808ea33/landingpageforms"
 							}
-							d365mktformcapture.submitForm(captureConfig, payload);
+							try {
+								await d365mktformcapture.submitForm(captureConfig, payload);
+								if (statusElement) {
+									statusElement.className = "form-status is-success";
+									statusElement.textContent = "Thank you. Your form was submitted successfully.";
+								}
+								form.reset();
+							} catch (error) {
+								console.error("Form capture submit failed", error);
+								if (statusElement) {
+									statusElement.className = "form-status is-error";
+									statusElement.textContent = "Submission failed. Please try again.";
+								}
+							} finally {
+								if (submitButton) {
+									submitButton.disabled = false;
+								}
+							}
 						}, true);
 					});
 				</script>

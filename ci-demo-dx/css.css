@@ -59,6 +59,25 @@ main h2 {
 	margin-top: 0;
 }
 
+.form-status {
+	font-size: 0.9rem;
+	font-weight: 600;
+	margin-top: 10px;
+	min-height: 1.2em;
+}
+
+.form-status.is-pending {
+	color: #666666;
+}
+
+.form-status.is-success {
+	color: #1f7a1f;
+}
+
+.form-status.is-error {
+	color: #b42318;
+}
+
 /* Footer (orange) */
 footer {
 	background: var(--accent);
