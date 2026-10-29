@@ -1,0 +1,77 @@
+:root {
+    --accent: #0067b8;
+	/*--accent: #ff5800;*/
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background: #ffffff;
+	color: #111;
+}
+
+/* Header */
+.site-header {
+	background: #ffffff;
+	padding: 20px 24px;
+}
+
+.site-header h1 {
+	margin: 0;
+	color: #000000;
+	font-size: 1.5rem;
+}
+
+/* Logo styling */
+.site-header img {
+	height: 60px;
+	vertical-align: middle;
+}
+
+/* Navigation bar (orange) */
+.site-nav {
+	background: var(--accent);
+	padding: 12px 24px;
+}
+
+.site-nav a {
+	color: #ffffff; /* nav links white for contrast */
+	text-decoration: none;
+	margin-right: 16px;
+	font-weight: 600;
+}
+
+/* Main content */
+main {
+	background: #ffffff;
+	padding: 40px 24px;
+	flex: 1 0 auto; /* grow to push footer down when needed */
+}
+
+main h2 {
+	margin-top: 0;
+}
+
+/* Footer (orange) */
+footer {
+	background: var(--accent);
+	color: #ffffff;
+	padding: 16px 24px;
+	text-align: center;
+	flex-shrink: 0;
+}
+
+/* General links across the page should use the orange accent */
+a:not(.site-nav a) {
+	color: var(--accent);
+}
+
+/* Ensure footer is not fixed: it will sit at bottom when page is short
+	 thanks to the column flex layout and main's flex:1 */
