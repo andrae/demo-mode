@@ -1,77 +1,200 @@
 :root {
-    --accent: #0067b8;
-	/*--accent: #ff5800;*/
+	--accent: #009b4d;
+	--accent-hover: #007f3f;
+	--text: #333333;
+	--muted: #666666;
+	--border: #e3e8e5;
+	--surface: #f6f8f7;
 }
 
-html, body {
-	height: 100%;
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	min-height: 100%;
 }
 
 body {
+	min-height: 100vh;
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
 	background: #ffffff;
-	color: #111;
+	color: var(--text);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
 }
 
-/* Header */
 .site-header {
+	padding: 24px max(24px, calc((100% - 1120px) / 2));
 	background: #ffffff;
-	padding: 20px 24px;
 }
 
-.site-header h1 {
-	margin: 0;
-	color: #000000;
-	font-size: 1.5rem;
+.site-header a {
+	display: inline-flex;
+	align-items: center;
 }
 
-/* Logo styling */
 .site-header img {
-	height: 60px;
-	vertical-align: middle;
+	display: block;
+	width: auto;
+	max-width: min(100%, 240px);
+	max-height: 52px;
+	object-fit: contain;
 }
 
-/* Navigation bar (orange) */
 .site-nav {
-	background: var(--accent);
-	padding: 12px 24px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px 32px;
+	min-height: 56px;
+	padding: 0 max(24px, calc((100% - 1120px) / 2));
+	border-top: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
+	background: #ffffff;
 }
 
 .site-nav a {
-	color: #ffffff; /* nav links white for contrast */
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	min-height: 56px;
+	color: var(--text);
+	font-size: 0.94rem;
+	font-weight: 500;
 	text-decoration: none;
-	margin-right: 16px;
-	font-weight: 600;
+	transition: color 160ms ease;
 }
 
-/* Main content */
-main {
-	background: #ffffff;
-	padding: 40px 24px;
-	flex: 1 0 auto; /* grow to push footer down when needed */
-}
-
-main h2 {
-	margin-top: 0;
-}
-
-/* Footer (orange) */
-footer {
-	background: var(--accent);
-	color: #ffffff;
-	padding: 16px 24px;
-	text-align: center;
-	flex-shrink: 0;
-}
-
-/* General links across the page should use the orange accent */
-a:not(.site-nav a) {
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.site-nav a:has(b) {
 	color: var(--accent);
 }
 
-/* Ensure footer is not fixed: it will sit at bottom when page is short
-	 thanks to the column flex layout and main's flex:1 */
+.site-nav a:has(b)::after {
+	position: absolute;
+	right: 0;
+	bottom: -1px;
+	left: 0;
+	height: 3px;
+	background: var(--accent);
+	content: "";
+}
+
+main {
+	flex: 1 0 auto;
+	width: min(100% - 48px, 1120px);
+	margin: 0 auto;
+	padding: clamp(40px, 7vw, 80px) 0;
+}
+
+main h2 {
+	margin: 0 0 24px;
+	color: var(--text);
+	font-size: clamp(1.75rem, 3vw, 2.25rem);
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+main p,
+main li {
+	color: var(--muted);
+}
+
+main ul {
+	padding-left: 1.25rem;
+}
+
+a:not(.site-nav a) {
+	color: var(--accent);
+	text-underline-offset: 3px;
+}
+
+a:not(.site-nav a):hover {
+	color: var(--accent-hover);
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+	min-height: 44px;
+	padding: 10px 20px;
+	border: 1px solid var(--accent);
+	border-radius: 3px;
+	background: var(--accent);
+	color: #ffffff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+	border-color: var(--accent-hover);
+	background: var(--accent-hover);
+}
+
+input,
+textarea,
+select {
+	max-width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #cfd7d2;
+	border-radius: 3px;
+	background: #ffffff;
+	color: var(--text);
+	font: inherit;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible {
+	outline: 3px solid rgb(0 155 77 / 22%);
+	outline-offset: 2px;
+}
+
+footer {
+	flex-shrink: 0;
+	padding: 20px 24px;
+	border-top: 1px solid var(--border);
+	background: var(--surface);
+	color: var(--muted);
+	text-align: center;
+}
+
+footer p {
+	margin: 0;
+	font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+	.site-header {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.site-nav {
+		gap: 0 20px;
+	}
+
+	.site-nav a {
+		min-height: 48px;
+		font-size: 0.9rem;
+	}
+
+	main {
+		width: min(100% - 40px, 1120px);
+	}
+}
